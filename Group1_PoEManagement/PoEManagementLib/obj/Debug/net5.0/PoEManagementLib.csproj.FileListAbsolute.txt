@@ -1,0 +1,15 @@
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\bin\Debug\net5.0\PoEManagementLib.deps.json
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\bin\Debug\net5.0\PoEManagementLib.dll
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\bin\Debug\net5.0\ref\PoEManagementLib.dll
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\bin\Debug\net5.0\PoEManagementLib.pdb
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\obj\Debug\net5.0\PoEManagementLib.csprojAssemblyReference.cache
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\obj\Debug\net5.0\PoEManagementLib.GeneratedMSBuildEditorConfig.editorconfig
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\obj\Debug\net5.0\PoEManagementLib.AssemblyInfoInputs.cache
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\obj\Debug\net5.0\PoEManagementLib.AssemblyInfo.cs
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\obj\Debug\net5.0\PoEManagementLib.csproj.CoreCompileInputs.cache
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\obj\Debug\net5.0\PoEManagementLib.dll
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\obj\Debug\net5.0\ref\PoEManagementLib.dll
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\obj\Debug\net5.0\PoEManagementLib.pdb
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\bin\Debug\net5.0\PoEManagementLib.runtimeconfig.json
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\bin\Debug\net5.0\PoEManagementLib.runtimeconfig.dev.json
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\obj\Debug\net5.0\PoEManagementLib.genruntimeconfig.cache

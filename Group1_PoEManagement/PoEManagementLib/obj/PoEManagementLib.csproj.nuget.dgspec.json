@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\FPTU Resources\\PRN221\\Group1_PoEManagement\\Group1_PoEManagement\\PoEManagementLib\\PoEManagementLib.csproj": {}
+    "D:\\FPTU Resources\\PRN221\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementLib\\PoEManagementLib.csproj": {}
   },
   "projects": {
-    "D:\\FPTU Resources\\PRN221\\Group1_PoEManagement\\Group1_PoEManagement\\PoEManagementLib\\PoEManagementLib.csproj": {
+    "D:\\FPTU Resources\\PRN221\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementLib\\PoEManagementLib.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\FPTU Resources\\PRN221\\Group1_PoEManagement\\Group1_PoEManagement\\PoEManagementLib\\PoEManagementLib.csproj",
+        "projectUniqueName": "D:\\FPTU Resources\\PRN221\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementLib\\PoEManagementLib.csproj",
         "projectName": "PoEManagementLib",
-        "projectPath": "D:\\FPTU Resources\\PRN221\\Group1_PoEManagement\\Group1_PoEManagement\\PoEManagementLib\\PoEManagementLib.csproj",
+        "projectPath": "D:\\FPTU Resources\\PRN221\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementLib\\PoEManagementLib.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\FPTU Resources\\PRN221\\Group1_PoEManagement\\Group1_PoEManagement\\PoEManagementLib\\obj\\",
+        "outputPath": "D:\\FPTU Resources\\PRN221\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementLib\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -43,6 +43,28 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.17, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.17, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.17, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
