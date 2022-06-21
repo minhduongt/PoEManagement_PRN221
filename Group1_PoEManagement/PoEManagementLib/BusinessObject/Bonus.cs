@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace PoEManagementLib.BusinessObject
 {
-    public partial class Bonu
+    public partial class Bonus
     {
         public int Id { get; set; }
         public decimal? BonusMoney { get; set; }

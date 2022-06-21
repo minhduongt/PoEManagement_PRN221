@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using PoEManagementLib.BusinessObject;
+
 
 #nullable disable
 
@@ -19,12 +21,21 @@ namespace PoEManagementLib.DataAccess
 
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Application> Applications { get; set; }
-        public virtual DbSet<Bonu> Bonus { get; set; }
+        public virtual DbSet<Bonus> Bonus { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<LogWork> LogWorks { get; set; }
         public virtual DbSet<Recuitment> Recuitments { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            string ConnectionString = "Server=MSI;User ID=sa;Password=tanminh;Database=Prn221DB;";
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer(ConnectionString);
+            }
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
@@ -79,7 +90,7 @@ namespace PoEManagementLib.DataAccess
                     .HasConstraintName("FK_Application_Recuitment");
             });
 
-            modelBuilder.Entity<Bonu>(entity =>
+            modelBuilder.Entity<Bonus>(entity =>
             {
                 entity.HasNoKey();
 
