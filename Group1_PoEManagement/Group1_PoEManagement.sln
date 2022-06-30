@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoEManagementLib", "PoEManagementLib\PoEManagementLib.csproj", "{D21F5AF7-1D9B-4BEF-B18F-52F6608BCF28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PoEManagementLib", "PoEManagementLib\PoEManagementLib.csproj", "{D21F5AF7-1D9B-4BEF-B18F-52F6608BCF28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoEManagementWeb", "PoEManagementWeb\PoEManagementWeb.csproj", "{E45F3EC8-49C3-436F-9C5D-C261A18648A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PoEManagementWeb", "PoEManagementWeb\PoEManagementWeb.csproj", "{E45F3EC8-49C3-436F-9C5D-C261A18648A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
