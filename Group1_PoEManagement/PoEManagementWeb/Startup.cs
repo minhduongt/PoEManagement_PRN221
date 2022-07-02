@@ -25,6 +25,7 @@ namespace PoEManagementWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSession();
             services.AddRazorPages();
             services.AddDbContext<Prn221DBContext>(options =>
            options.UseSqlServer(Configuration.GetConnectionString("Prn221DBConnection")));
@@ -46,9 +47,9 @@ namespace PoEManagementWeb
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

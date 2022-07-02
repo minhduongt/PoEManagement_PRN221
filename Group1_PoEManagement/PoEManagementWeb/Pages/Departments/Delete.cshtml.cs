@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +25,16 @@ namespace PoEManagementWeb.Pages.Departments
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+            string LoginEmail = HttpContext.Session.GetString("LoginEmail");
+            string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
+            if (LoginEmail == null)
+            {
+                TempData["Error"] = "Please login.";
+                return RedirectToPage("/Login");
+            }
+            if (LoginEmail != null && ManagerEmail == null)
+                return RedirectToPage("/Home");
+
             if (id == null)
             {
                 return NotFound();

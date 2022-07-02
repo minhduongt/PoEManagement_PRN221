@@ -21,9 +21,4 @@
     <ProjectReference Include="..\PoEManagementLib\PoEManagementLib.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\LogWorks\" />
-    <Folder Include="Pages\Recruiments\" />
-  </ItemGroup>
-
 </Project>

@@ -1,17 +1,27 @@
-﻿<!DOCTYPE html>
+﻿
+@using Microsoft.AspNetCore.Http;
+@using PoEManagementLib.BusinessObject;
+@using PoEManagementLib.DataAccess.Repository;
+@{
+    IAccountRepository customerRepository = new AccountRepository();
+    string LoginEmail = @Context.Session.GetString("LoginEmail");
+    string ManagerEmail = @Context.Session.GetString("ManagerEmail");
+    Account account = customerRepository.GetAccountByEmail(LoginEmail);
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - PoEManagementWeb</title>
     <title></title>
-    <link rel="canonical" href="https://www.wrappixel.com/templates/ample-admin-lite/" />
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="plugins/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/plugins/images/favicon.png">
     <!-- Custom CSS -->
-    <link href="css/style.min.css" rel="stylesheet">
+    <link href="~/css/style.min.css" rel="stylesheet">
 </head>
 <body>
+
     @*<header>
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
                 <div class="container">
@@ -52,53 +62,81 @@
         <!-- ============================================================== -->
         <header class="topbar" data-navbarbg="skin5">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
-               
-                
+
+
 
                 <!-- End Logo -->
 
-                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5" 
+                <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin5"
                      style="padding-inline-start: 2em; padding-inline-end:2em">
                     <h3 style="color:white">Process of Employee Management</h3>
                     @*<ul class="navbar-nav d-none d-md-block d-lg-none">
-                        <li class="nav-item">
-                            <a class="nav-toggler nav-link waves-effect waves-light text-white"
-                               href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
-                        </li>
-                    </ul>*@
+            <li class="nav-item">
+                <a class="nav-toggler nav-link waves-effect waves-light text-white"
+                   href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+            </li>
+        </ul>*@
 
                     <!-- Right side toggle and nav items -->
-
                     <ul class="navbar-nav ms-auto d-flex align-items-center">
-                        <!-- Search -->
+                        @{
+                            if (LoginEmail != null && ManagerEmail != null)
+                            {
 
-                        <li class=" in">
+                                <!-- Search -->
+                                @*<li class=" in">
+                        <form role="search" class="app-search d-none d-md-block me-3">
+                            <input type="text" placeholder="Search..." class="form-control mt-0">
+                            <a href="" class="active">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </form>
+                    </li>*@
+
+                                <!-- User profile and search -->
+                                <li>
+                                    <a href="#">
+                                        <span class="text-white font-medium">
+                                            Welcome @{if (account.IsManager == true)
+                                                {<span>Manager</span>} } , @account.Email
+                                            </span>
+                                        </a>
+                                    </li>
+
+                                    <!-- User profile and search -->
+
+                                }
+                                if (LoginEmail != null && ManagerEmail == null)
+                                {
+
+                                    <!-- Search -->
+                                    @*<li class=" in">
                             <form role="search" class="app-search d-none d-md-block me-3">
                                 <input type="text" placeholder="Search..." class="form-control mt-0">
                                 <a href="" class="active">
                                     <i class="fa fa-search"></i>
                                 </a>
                             </form>
-                        </li>
+                        </li>*@
 
-                        <!-- User profile and search -->
+                                    <!-- User profile and search -->
+                                    <li>
+                                        <a href="#">
+                                            <span class="text-white font-medium">Welcome, @account.Email</span>
+                                        </a>
+                                    </li>
 
-                        <li>
-                            <a href="">Login</a>
-                            <a href="#">
-                                <span class="text-white font-medium">User Name</span>
-                            </a>
-                        </li>
+                                }
 
-                        <!-- User profile and search -->
-
+                        }
                     </ul>
+                    <a class="nav-link text-blue" asp-page="/Login" asp-page-handler="Logout">Logout</a>
+
                 </div>
             </nav>
         </header>
 
         <!-- End Topbar header -->
-
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
 
         <aside class="left-sidebar" data-sidebarbg="skin6">
@@ -109,49 +147,70 @@
                     <ul id="sidebarnav">
                         <!-- User Profile-->
                         <li class="sidebar-item pt-2">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard.html"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-page="/Home"
                                aria-expanded="false">
                                 <i class="far fa-clock" aria-hidden="true"></i>
                                 <span class="hide-menu">Dashboard</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="profile.html"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-page="/Accounts/Index"
                                aria-expanded="false">
                                 <i class="fa fa-user" aria-hidden="true"></i>
                                 <span class="hide-menu">Accounts</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="basic-table.html"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-page="/Departments/Index"
                                aria-expanded="false">
                                 <i class="fa fa-table" aria-hidden="true"></i>
                                 <span class="hide-menu">Departments</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="fontawesome.html"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-page="/Employees/Index"
                                aria-expanded="false">
                                 <i class="fa fa-font" aria-hidden="true"></i>
                                 <span class="hide-menu">Employees</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="map-google.html"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-page="/Bonuses/Index"
                                aria-expanded="false">
                                 <i class="fa fa-globe" aria-hidden="true"></i>
-                                <span class="hide-menu">Applications</span>
+                                <span class="hide-menu">Bonuses</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="blank.html"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-page="/RequestOts/Index"
+                               aria-expanded="false">
+                                <i class="fa fa-globe" aria-hidden="true"></i>
+                                <span class="hide-menu">RequestOts</span>
+                            </a>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-page="/Aplications/Index"
+                               aria-expanded="false">
+                                <i class="fa fa-globe" aria-hidden="true"></i>
+                                <span class="hide-menu">Aplications</span>
+                            </a>
+                        </li>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-page="/Candidates/Index"
+                               aria-expanded="false">
+                                <i class="fa fa-globe" aria-hidden="true"></i>
+                                <span class="hide-menu">Candidates</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-page="/Recruitments/Index"
                                aria-expanded="false">
                                 <i class="fa fa-columns" aria-hidden="true"></i>
                                 <span class="hide-menu">Recruitment</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="404.html"
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-page="/Logworks/Index"
                                aria-expanded="false">
                                 <i class="fa fa-info-circle" aria-hidden="true"></i>
                                 <span class="hide-menu">Logworks</span>
@@ -165,49 +224,34 @@
             </div>
             <!-- End Sidebar scroll-->
         </aside>
-        <!-- ============================================================== -->
-        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper  -->
-        <!-- ============================================================== -->
         <div class="page-wrapper">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
+
             <div class="container">
-                <main role="main" class="p-3">
-            @RenderBody()
-                </main>
+
+                @RenderBody()
+
             </div>
+
         </div>
+
     </div>
 
-
-    @*<footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; 2022 - PoEManagementWeb - <a asp-area="" asp-page="/Privacy">Privacy</a>
-            </div>
-        </footer>*@
-    <footer class="footer text-center">
-        2021 © <a href="https://www.wrappixel.com/">PRN221_Group1</a>
-    </footer>
-
-    <script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/app-style-switcher.js"></script>
-    <!--Wave Effects -->
-    <script src="js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="js/custom.js"></script>
-
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>
+<footer class="footer text-center">
+    2022 © PRN221_Group1- PoEManagementWeb - <a asp-area="" asp-page="/Privacy">Privacy</a>
+</footer>
+
+<script src="~/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+
+<script src="~/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/app-style-switcher.js"></script>
+
+<script src="~/js/waves.js"></script>
+
+<script src="~/js/sidebarmenu.js"></script>
+
+<script src="~/js/custom.js"></script>
+
+@await RenderSectionAsync("Scripts", required: false)

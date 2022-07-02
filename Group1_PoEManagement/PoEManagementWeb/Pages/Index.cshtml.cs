@@ -5,21 +5,37 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PoEManagementLib.BusinessObject;
+using PoEManagementLib.DataAccess;
+
+using Microsoft.AspNetCore.Http;
 
 namespace PoEManagementWeb.Pages
 {
+    [BindProperties]
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
+        private readonly Prn221DBContext _context;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(Prn221DBContext context)
         {
-            _logger = logger;
+            _context = context;
+
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
-
+            string LoginEmail = HttpContext.Session.GetString("LoginEmail");
+            string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
+            if (LoginEmail == null)
+            {
+                return RedirectToPage("/Login");
+            }
+            else if (LoginEmail != null && ManagerEmail == null)
+                return Page();
+            else
+                return RedirectToPage("/Home");
         }
     }
 }
+

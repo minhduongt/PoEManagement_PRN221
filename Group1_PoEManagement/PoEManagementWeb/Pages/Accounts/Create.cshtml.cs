@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -21,7 +22,16 @@ namespace PoEManagementWeb.Pages.Accounts
 
         public IActionResult OnGet()
         {
-        ViewData["Id"] = new SelectList(_context.Employees, "Id", "Address");
+            string LoginEmail = HttpContext.Session.GetString("LoginEmail");
+            string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
+            if (LoginEmail == null)
+            {
+                TempData["Error"] = "Please login.";
+                return RedirectToPage("/Login");
+            }
+            if (LoginEmail != null && ManagerEmail == null)
+                return RedirectToPage("/Home");
+            ViewData["Id"] = new SelectList(_context.Employees, "Id", "Address");
             return Page();
         }
 

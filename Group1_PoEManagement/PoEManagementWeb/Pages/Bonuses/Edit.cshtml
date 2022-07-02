@@ -1,0 +1,61 @@
+﻿@page
+@model PoEManagementWeb.Pages.Bonuses.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Bonus</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Bonus.Id" />
+            <div class="form-group">
+                <label asp-for="Bonus.BonusMoney" class="control-label"></label>
+                <input asp-for="Bonus.BonusMoney" class="form-control" />
+                <span asp-validation-for="Bonus.BonusMoney" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bonus.Month" class="control-label"></label>
+                <input asp-for="Bonus.Month" class="form-control" />
+                <span asp-validation-for="Bonus.Month" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bonus.Description" class="control-label"></label>
+                <input asp-for="Bonus.Description" class="form-control" />
+                <span asp-validation-for="Bonus.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bonus.EmployeeId" class="control-label"></label>
+                <select asp-for="Bonus.EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>
+                <span asp-validation-for="Bonus.EmployeeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bonus.Fine" class="control-label"></label>
+                <input asp-for="Bonus.Fine" class="form-control" />
+                <span asp-validation-for="Bonus.Fine" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bonus.Deleted" class="control-label"></label>
+                <input asp-for="Bonus.Deleted" class="form-control" />
+                <span asp-validation-for="Bonus.Deleted" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
