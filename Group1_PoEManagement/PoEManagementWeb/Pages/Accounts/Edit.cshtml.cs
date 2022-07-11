@@ -63,14 +63,7 @@ namespace PoEManagementWeb.Pages.Accounts
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AccountExists(Account.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+               
             }
 
             return RedirectToPage("./Index");

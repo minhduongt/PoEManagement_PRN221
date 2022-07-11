@@ -18,11 +18,10 @@ namespace PoEManagementWeb.Pages.Logworks
         ILogWorkRepository logWorkRepository = new LogWorkRepository();
         IEmployeeRepository employeeRepository = new EmployeeRepository();
 
-
         [BindProperty]
         public LogWork LogWork { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
@@ -39,7 +38,7 @@ namespace PoEManagementWeb.Pages.Logworks
                 return NotFound();
             }
 
-            LogWork = logWorkRepository.GetLogWorkByID((int)id);
+            LogWork = logWorkRepository.GetLogWorkByID(id);
 
             if (LogWork == null)
             {
@@ -63,9 +62,5 @@ namespace PoEManagementWeb.Pages.Logworks
             return RedirectToPage("./Index");
         }
 
-        private bool LogWorkExists(int id)
-        {
-            return logWorkRepository.GetLogWorks().Any(e => e.Id == id);
-        }
     }
 }

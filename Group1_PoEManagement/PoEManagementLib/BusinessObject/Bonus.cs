@@ -12,6 +12,8 @@ namespace PoEManagementLib.BusinessObject
         [Range(0, 9999999, ErrorMessage = "Money must between 0 and 9999999")]
         public decimal? BonusMoney { get; set; }
         public int Month { get; set; }
+        [MaxLength(100, ErrorMessage ="Max length is 100")]
+        public string Description { get; set; }
         [Required(ErrorMessage = "Id employee is required!")]
         public int EmployeeId { get; set; }
         [Range(0, 9999999, ErrorMessage = "Money must between 0 and 9999999")]

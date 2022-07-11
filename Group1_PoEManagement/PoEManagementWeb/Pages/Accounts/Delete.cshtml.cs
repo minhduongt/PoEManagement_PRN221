@@ -19,7 +19,7 @@ namespace PoEManagementWeb.Pages.Accounts
         [BindProperty]
         public Account Account { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
