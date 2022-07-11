@@ -7169,19 +7169,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\win 10\\.nuget\\packages\\": {}
+    "C:\\Users\\Admin\\.nuget\\packages\\": {},
+    "D:\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Github\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementWeb\\PoEManagementWeb.csproj",
+      "projectUniqueName": "D:\\FPTU Resources\\PRN221\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementWeb\\PoEManagementWeb.csproj",
       "projectName": "PoEManagementWeb",
-      "projectPath": "D:\\Github\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementWeb\\PoEManagementWeb.csproj",
-      "packagesPath": "C:\\Users\\win 10\\.nuget\\packages\\",
-      "outputPath": "D:\\Github\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementWeb\\obj\\",
+      "projectPath": "D:\\FPTU Resources\\PRN221\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementWeb\\PoEManagementWeb.csproj",
+      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+      "outputPath": "D:\\FPTU Resources\\PRN221\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementWeb\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "D:\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\win 10\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7195,8 +7200,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\Github\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementLib\\PoEManagementLib.csproj": {
-              "projectPath": "D:\\Github\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementLib\\PoEManagementLib.csproj"
+            "D:\\FPTU Resources\\PRN221\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementLib\\PoEManagementLib.csproj": {
+              "projectPath": "D:\\FPTU Resources\\PRN221\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementLib\\PoEManagementLib.csproj"
             }
           }
         }
@@ -7250,7 +7255,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

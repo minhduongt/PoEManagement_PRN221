@@ -18,7 +18,7 @@
                 @Html.DisplayNameFor(model => model.Employee[0].Salary)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Employee[0].LogWorkId)
+                @Html.DisplayNameFor(model => model.Employee[0].LogWorks)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Employee[0].Address)
@@ -46,7 +46,7 @@
                     @Html.DisplayFor(modelItem => item.Salary)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LogWorkId)
+                    @Html.DisplayFor(modelItem => item.LogWorks)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Address)
@@ -78,7 +78,7 @@
     Previous
 </a>
 <a asp-action="Index"
-   asp-route-pageNumber="@(TempData["PageIndex - 1")"
+   asp-route-pageNumber="@(TempData["PageIndex - 1"])"
    class="btn btn-default @TempData["PreDisabled"]">
     Next
 </a>
