@@ -8,17 +8,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Accounts
 {
     public class CreateModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public CreateModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        IAccountRepository accountRepository = new AccountRepository();
+        IEmployeeRepository employeeRepository = new EmployeeRepository();
 
         public IActionResult OnGet()
         {
@@ -31,7 +28,7 @@ namespace PoEManagementWeb.Pages.Accounts
             }
             if (LoginEmail != null && ManagerEmail == null)
                 return RedirectToPage("/Home");
-            ViewData["Id"] = new SelectList(_context.Employees, "Id", "Address");
+            ViewData["Id"] = new SelectList(employeeRepository.GetEmployees(), "Id", "Address");
             return Page();
         }
 
@@ -46,8 +43,7 @@ namespace PoEManagementWeb.Pages.Accounts
                 return Page();
             }
 
-            _context.Accounts.Add(Account);
-            await _context.SaveChangesAsync();
+            accountRepository.InsertAccount(Account);
 
             return RedirectToPage("./Index");
         }

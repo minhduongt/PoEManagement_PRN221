@@ -8,22 +8,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Aplications
 {
     public class DeleteModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public DeleteModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        IApplicationRepository applicationRepository = new ApplicationRepository();
 
         [BindProperty]
         public Application Application { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
@@ -39,8 +35,7 @@ namespace PoEManagementWeb.Pages.Aplications
                 return NotFound();
             }
 
-            Application = await _context.Applications
-                .Include(a => a.Recuitment).FirstOrDefaultAsync(m => m.Id == id);
+            Application = applicationRepository.GetApplicationByID(id);
 
             if (Application == null)
             {
@@ -49,20 +44,14 @@ namespace PoEManagementWeb.Pages.Aplications
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Application = await _context.Applications.FindAsync(id);
-
-            if (Application != null)
-            {
-                _context.Applications.Remove(Application);
-                await _context.SaveChangesAsync();
-            }
+            applicationRepository.DeleteApplication(id);
 
             return RedirectToPage("./Index");
         }

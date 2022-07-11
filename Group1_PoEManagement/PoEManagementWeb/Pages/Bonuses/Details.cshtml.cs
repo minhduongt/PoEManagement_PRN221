@@ -8,21 +8,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Bonuses
 {
     public class DetailsModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public DetailsModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        IBonusRepository bonusRepository = new BonusRepository();
 
         public Bonus Bonus { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
@@ -39,8 +35,7 @@ namespace PoEManagementWeb.Pages.Bonuses
                 return NotFound();
             }
 
-            Bonus = await _context.Bonus
-                .Include(b => b.Employee).FirstOrDefaultAsync(m => m.Id == id);
+            Bonus = bonusRepository.GetBonusByID(id);
 
             if (Bonus == null)
             {

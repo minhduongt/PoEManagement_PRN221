@@ -8,19 +8,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Logworks
 {
     public class IndexModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
+        ILogWorkRepository logWorkRepository = new LogWorkRepository();
 
-        public IndexModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
-
-        public IList<LogWork> LogWork { get;set; }
+        public List<LogWork> LogWork { get;set; }
 
         public async Task OnGetAsync()
         {
@@ -34,8 +30,7 @@ namespace PoEManagementWeb.Pages.Logworks
             if (LoginEmail != null && ManagerEmail == null)
                  RedirectToPage("/Home");
 
-            LogWork = await _context.LogWorks
-                .Include(l => l.Employee).ToListAsync();
+            LogWork = logWorkRepository.GetLogWorks().ToList();
         }
     }
 }

@@ -8,21 +8,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Logworks
 {
     public class DetailsModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public DetailsModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        ILogWorkRepository logWorkRepository = new LogWorkRepository();
 
         public LogWork LogWork { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
@@ -39,9 +35,7 @@ namespace PoEManagementWeb.Pages.Logworks
                 return NotFound();
             }
 
-            LogWork = await _context.LogWorks
-                .Include(l => l.Employee).FirstOrDefaultAsync(m => m.Id == id);
-
+            LogWork = logWorkRepository.GetLogWorkByID(id);
             if (LogWork == null)
             {
                 return NotFound();

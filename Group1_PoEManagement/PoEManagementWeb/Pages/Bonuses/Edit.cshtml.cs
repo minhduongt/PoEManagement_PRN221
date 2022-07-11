@@ -9,22 +9,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Bonuses
 {
     public class EditModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public EditModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        IBonusRepository bonusRepository = new BonusRepository();
+        IEmployeeRepository employeeRepository = new EmployeeRepository();
 
         [BindProperty]
         public Bonus Bonus { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
@@ -41,14 +38,13 @@ namespace PoEManagementWeb.Pages.Bonuses
                 return NotFound();
             }
 
-            Bonus = await _context.Bonus
-                .Include(b => b.Employee).FirstOrDefaultAsync(m => m.Id == id);
+            Bonus = bonusRepository.GetBonusByID(id);
 
             if (Bonus == null)
             {
                 return NotFound();
             }
-           ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "Address");
+           ViewData["EmployeeId"] = new SelectList(employeeRepository.GetEmployees(), "Id", "Address");
             return Page();
         }
 
@@ -61,23 +57,7 @@ namespace PoEManagementWeb.Pages.Bonuses
                 return Page();
             }
 
-            _context.Attach(Bonus).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BonusExists(Bonus.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            bonusRepository.UpdateBonus(Bonus);
 
             return RedirectToPage("./Index");
         }

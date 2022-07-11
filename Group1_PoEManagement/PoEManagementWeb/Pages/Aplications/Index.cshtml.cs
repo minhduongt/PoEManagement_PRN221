@@ -8,19 +8,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Aplications
 {
     public class IndexModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
+        IApplicationRepository applicationRepository = new ApplicationRepository();
 
-        public IndexModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
-
-        public IList<Application> Application { get;set; }
+        public List<Application> Application { get;set; }
 
         public async Task OnGetAsync()
         {
@@ -33,8 +29,7 @@ namespace PoEManagementWeb.Pages.Aplications
             }
             if (LoginEmail != null && ManagerEmail == null)
                  RedirectToPage("/Home");
-            Application = await _context.Applications
-                .Include(a => a.Recuitment).ToListAsync();
+            Application = applicationRepository.GetApplications().ToList();
         }
     }
 }

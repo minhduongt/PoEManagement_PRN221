@@ -12,14 +12,7 @@ using PoEManagementLib.DataAccess;
 namespace PoEManagementWeb.Pages.Candidates
 {
     public class CreateModel : PageModel
-    {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public CreateModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
-
+    {     
         public IActionResult OnGet()
         {
             return Page();

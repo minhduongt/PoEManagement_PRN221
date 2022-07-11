@@ -8,17 +8,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Accounts
 {
     public class DetailsModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public DetailsModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        IAccountRepository accountRepository = new AccountRepository();
 
         public Account Account { get; set; }
 
@@ -39,8 +35,7 @@ namespace PoEManagementWeb.Pages.Accounts
                 return NotFound();
             }
 
-            Account = await _context.Accounts
-                .Include(a => a.IdNavigation).FirstOrDefaultAsync(m => m.Id == id);
+            Account = accountRepository.GetAccountByID(id);
 
             if (Account == null)
             {

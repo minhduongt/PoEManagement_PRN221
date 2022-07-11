@@ -8,18 +8,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Aplications
 {
     public class CreateModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public CreateModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
-
+        IApplicationRepository applicationRepository = new ApplicationRepository();
+        IRecuitmentRepository recuitmentRepository = new RecuitmentRepository();
         public IActionResult OnGet()
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
@@ -31,7 +27,7 @@ namespace PoEManagementWeb.Pages.Aplications
             }
             if (LoginEmail != null && ManagerEmail == null)
                 return RedirectToPage("/Home");
-            ViewData["RecuitmentId"] = new SelectList(_context.Recuitments, "Id", "Title");
+            ViewData["RecuitmentId"] = new SelectList(recuitmentRepository.GetRecuitments(), "Id", "Title");
             return Page();
         }
 
@@ -47,8 +43,7 @@ namespace PoEManagementWeb.Pages.Aplications
                 return Page();
             }
 
-            _context.Applications.Add(Application);
-            await _context.SaveChangesAsync();
+            applicationRepository.InsertApplication(Application);
 
             return RedirectToPage("./Index");
         }

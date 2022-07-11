@@ -9,22 +9,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Accounts
 {
     public class EditModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public EditModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        IAccountRepository accountRepository = new AccountRepository();
+        IEmployeeRepository employeeRepository = new EmployeeRepository();
 
         [BindProperty]
         public Account Account { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
@@ -41,14 +38,13 @@ namespace PoEManagementWeb.Pages.Accounts
                 return NotFound();
             }
 
-            Account = await _context.Accounts
-                .Include(a => a.IdNavigation).FirstOrDefaultAsync(m => m.Id == id);
+            Account = accountRepository.GetAccountByID(id);
 
             if (Account == null)
             {
                 return NotFound();
             }
-           ViewData["Id"] = new SelectList(_context.Employees, "Id", "Address");
+           ViewData["Id"] = new SelectList(employeeRepository.GetEmployees(), "Id", "Address");
             return Page();
         }
 
@@ -61,11 +57,9 @@ namespace PoEManagementWeb.Pages.Accounts
                 return Page();
             }
 
-            _context.Attach(Account).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                accountRepository.UpdateAccount(Account);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -82,9 +76,6 @@ namespace PoEManagementWeb.Pages.Accounts
             return RedirectToPage("./Index");
         }
 
-        private bool AccountExists(int id)
-        {
-            return _context.Accounts.Any(e => e.Id == id);
-        }
+        
     }
 }

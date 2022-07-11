@@ -8,22 +8,20 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Accounts
 {
     public class IndexModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
+        IAccountRepository accountRepository = new AccountRepository();
+        public List<Account> Account { get;set; }
+        public int pageNumber { get; set; }
 
-        public IndexModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
-
-        public IList<Account> Account { get;set; }
 
         public async Task OnGetAsync()
         {
+            pageNumber = 0;
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
             if (LoginEmail == null)
@@ -34,8 +32,16 @@ namespace PoEManagementWeb.Pages.Accounts
             if (LoginEmail != null && ManagerEmail == null)
                 RedirectToPage("/Home");
 
-            Account = await _context.Accounts
-                .Include(a => a.IdNavigation).ToListAsync();
+            Account = accountRepository.GetAccounts().ToList();
+            var pageIndex = pageNumber;
+            if (pageIndex == 0) TempData["PreDisabled"] = "disabled";
+            if ((pageIndex * 10 + 10) < Account.Count()) Account = Account.GetRange(pageIndex * 10, 10);
+            else
+            {
+                TempData["NextDisabled"] = "disabled";
+                Account = Account.GetRange((pageIndex) * 10, Account.Count() - (pageIndex) * 10);
+            }
+            TempData["PageIndex"] = pageIndex;
         }
     }
 }

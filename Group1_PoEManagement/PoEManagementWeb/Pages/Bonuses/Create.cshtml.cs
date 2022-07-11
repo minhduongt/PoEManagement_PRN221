@@ -8,17 +8,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Bonuses
 {
     public class CreateModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public CreateModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        IBonusRepository bonusRepository = new BonusRepository();
+        IEmployeeRepository employeeRepository = new EmployeeRepository();
 
         public IActionResult OnGet()
         {
@@ -31,7 +28,7 @@ namespace PoEManagementWeb.Pages.Bonuses
             }
             if (LoginEmail != null && ManagerEmail == null)
                 return RedirectToPage("/Home");
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "Address");
+            ViewData["EmployeeId"] = new SelectList(employeeRepository.GetEmployees(), "Id", "Address");
             return Page();
         }
 
@@ -46,8 +43,7 @@ namespace PoEManagementWeb.Pages.Bonuses
                 return Page();
             }
 
-            _context.Bonus.Add(Bonus);
-            await _context.SaveChangesAsync();
+            bonusRepository.InsertBonus(Bonus);
 
             return RedirectToPage("./Index");
         }

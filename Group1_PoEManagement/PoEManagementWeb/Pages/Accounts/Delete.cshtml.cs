@@ -8,17 +8,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Accounts
 {
     public class DeleteModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public DeleteModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        IAccountRepository accountRepository = new AccountRepository();
 
         [BindProperty]
         public Account Account { get; set; }
@@ -40,8 +36,7 @@ namespace PoEManagementWeb.Pages.Accounts
                 return NotFound();
             }
 
-            Account = await _context.Accounts
-                .Include(a => a.IdNavigation).FirstOrDefaultAsync(m => m.Id == id);
+            Account = accountRepository.GetAccountByID(id);
 
             if (Account == null)
             {
@@ -50,19 +45,17 @@ namespace PoEManagementWeb.Pages.Accounts
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Account = await _context.Accounts.FindAsync(id);
 
             if (Account != null)
             {
-                _context.Accounts.Remove(Account);
-                await _context.SaveChangesAsync();
+                accountRepository.DeleteAccount(id);
             }
 
             return RedirectToPage("./Index");

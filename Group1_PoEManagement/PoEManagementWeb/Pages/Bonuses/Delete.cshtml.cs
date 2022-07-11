@@ -8,22 +8,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Bonuses
 {
     public class DeleteModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public DeleteModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        IBonusRepository bonusRepository = new BonusRepository();
 
         [BindProperty]
         public Bonus Bonus { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
@@ -40,8 +36,7 @@ namespace PoEManagementWeb.Pages.Bonuses
                 return NotFound();
             }
 
-            Bonus = await _context.Bonus
-                .Include(b => b.Employee).FirstOrDefaultAsync(m => m.Id == id);
+            Bonus = bonusRepository.GetBonusByID(id);
 
             if (Bonus == null)
             {
@@ -50,20 +45,14 @@ namespace PoEManagementWeb.Pages.Bonuses
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Bonus = await _context.Bonus.FindAsync(id);
-
-            if (Bonus != null)
-            {
-                _context.Bonus.Remove(Bonus);
-                await _context.SaveChangesAsync();
-            }
+            bonusRepository.DeleteBonus(id);
 
             return RedirectToPage("./Index");
         }

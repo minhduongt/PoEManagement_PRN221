@@ -8,22 +8,20 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Employees
 {
     public class IndexModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
+        IEmployeeRepository employeeRepository = new EmployeeRepository();
 
-        public IndexModel(PoEManagementLib.DataAccess.Prn221DBContext context)
+        public List<Employee> Employee { get;set; }
+        public int pageNumber { get; set; }
+
+        public void OnGet()
         {
-            _context = context;
-        }
-
-        public IList<Employee> Employee { get;set; }
-
-        public async Task OnGetAsync()
-        {
+            pageNumber = 0;
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
             if (LoginEmail == null)
@@ -33,8 +31,18 @@ namespace PoEManagementWeb.Pages.Employees
             }
             if (LoginEmail != null && ManagerEmail == null)
                  RedirectToPage("/Home");
-            Employee = await _context.Employees
-                .Include(e => e.Department).ToListAsync();
+            Employee = employeeRepository.GetEmployees().ToList();
+            //Paging
+            var pageIndex = pageNumber;
+            if (pageIndex == 0) TempData["PreDisabled"] = "disabled";
+            if ((pageIndex * 10 + 10) < Employee.Count()) Employee = Employee.GetRange(pageIndex * 10, 10);
+            else
+            {
+                TempData["NextDisabled"] = "disabled";
+                Employee = Employee.GetRange((pageIndex) * 10, Employee.Count() - (pageIndex) * 10);
+            }
+            TempData["PageIndex"] = pageIndex;
+
         }
     }
 }

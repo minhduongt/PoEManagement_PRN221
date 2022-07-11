@@ -9,22 +9,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Aplications
 {
     public class EditModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public EditModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        IApplicationRepository applicationRepository = new ApplicationRepository();
+        IRecuitmentRepository recuitmentRepository = new RecuitmentRepository();
 
         [BindProperty]
         public Application Application { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
@@ -40,14 +37,13 @@ namespace PoEManagementWeb.Pages.Aplications
                 return NotFound();
             }
 
-            Application = await _context.Applications
-                .Include(a => a.Recuitment).FirstOrDefaultAsync(m => m.Id == id);
+            Application = applicationRepository.GetApplicationByID(id);
 
             if (Application == null)
             {
                 return NotFound();
             }
-           ViewData["RecuitmentId"] = new SelectList(_context.Recuitments, "Id", "Title");
+           ViewData["RecuitmentId"] = new SelectList(recuitmentRepository.GetRecuitments(), "Id", "Title");
             return Page();
         }
 
@@ -60,30 +56,10 @@ namespace PoEManagementWeb.Pages.Aplications
                 return Page();
             }
 
-            _context.Attach(Application).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ApplicationExists(Application.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            applicationRepository.UpdateApplication(Application);
 
             return RedirectToPage("./Index");
         }
 
-        private bool ApplicationExists(int id)
-        {
-            return _context.Applications.Any(e => e.Id == id);
-        }
     }
 }
