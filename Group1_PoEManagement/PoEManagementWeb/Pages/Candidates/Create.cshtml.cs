@@ -8,11 +8,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Candidates
 {
     public class CreateModel : PageModel
-    {     
+    {
+        ICandidateRepository candidateRepository = new CandidateRepository();
         public IActionResult OnGet()
         {
             return Page();
@@ -38,8 +40,7 @@ namespace PoEManagementWeb.Pages.Candidates
                 return Page();
             }
 
-            _context.Candidates.Add(Candidate);
-            await _context.SaveChangesAsync();
+            candidateRepository.InsertCandidate(Candidate);
 
             return RedirectToPage("./Index");
         }

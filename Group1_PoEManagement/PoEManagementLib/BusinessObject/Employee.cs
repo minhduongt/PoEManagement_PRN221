@@ -1,5 +1,4 @@
 ﻿using PoEManagementLib.BusinessObject.MyValidation;
-using PoEManagementLib.BusinessObject.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -29,5 +28,7 @@ namespace PoEManagementLib.BusinessObject
         public bool? Deleted { get; set; }
         public virtual Department Department { get; set; }
         public virtual Account Account { get; set; }
+        public virtual IList<Bonus> Bonus { get; set; }
+        public virtual IList<LogWork> LogWorks { get; set; }
     }
 }

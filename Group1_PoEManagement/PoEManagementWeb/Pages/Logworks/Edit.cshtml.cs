@@ -16,11 +16,12 @@ namespace PoEManagementWeb.Pages.Logworks
     public class EditModel : PageModel
     {
         ILogWorkRepository logWorkRepository = new LogWorkRepository();
+        IEmployeeRepository employeeRepository = new EmployeeRepository();
 
         [BindProperty]
         public LogWork LogWork { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
@@ -37,14 +38,13 @@ namespace PoEManagementWeb.Pages.Logworks
                 return NotFound();
             }
 
-            LogWork = await _context.LogWorks
-                .Include(l => l.Employee).FirstOrDefaultAsync(m => m.Id == id);
+            LogWork = logWorkRepository.GetLogWorkByID(id);
 
             if (LogWork == null)
             {
                 return NotFound();
             }
-           ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "Address");
+           ViewData["EmployeeId"] = new SelectList(employeeRepository.GetEmployees(), "Id", "Address");
             return Page();
         }
 
@@ -57,30 +57,10 @@ namespace PoEManagementWeb.Pages.Logworks
                 return Page();
             }
 
-            _context.Attach(LogWork).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LogWorkExists(LogWork.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            logWorkRepository.UpdateLogWork(LogWork);
 
             return RedirectToPage("./Index");
         }
 
-        private bool LogWorkExists(int id)
-        {
-            return _context.LogWorks.Any(e => e.Id == id);
-        }
     }
 }

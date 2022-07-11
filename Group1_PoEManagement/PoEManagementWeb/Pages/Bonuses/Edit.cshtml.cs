@@ -62,9 +62,5 @@ namespace PoEManagementWeb.Pages.Bonuses
             return RedirectToPage("./Index");
         }
 
-        private bool BonusExists(int id)
-        {
-            return _context.Bonus.Any(e => e.Id == id);
-        }
     }
 }

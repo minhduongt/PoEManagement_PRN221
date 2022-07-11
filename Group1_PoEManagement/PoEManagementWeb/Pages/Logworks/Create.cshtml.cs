@@ -29,7 +29,7 @@ namespace PoEManagementWeb.Pages.Logworks
             if (LoginEmail != null && ManagerEmail == null)
                 return RedirectToPage("/Home");
 
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "Address");
+            ViewData["EmployeeId"] = new SelectList(employeeRepository.GetEmployees(), "Id", "Address");
             return Page();
         }
 
@@ -44,8 +44,7 @@ namespace PoEManagementWeb.Pages.Logworks
                 return Page();
             }
 
-            _context.LogWorks.Add(LogWork);
-            await _context.SaveChangesAsync();
+            logWorkRepository.InsertLogWork(LogWork);
 
             return RedirectToPage("./Index");
         }
