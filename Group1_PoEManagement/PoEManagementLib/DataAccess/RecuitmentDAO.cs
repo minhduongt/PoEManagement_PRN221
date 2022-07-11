@@ -1,4 +1,5 @@
-﻿using PoEManagementLib.BusinessObject;
+﻿using Microsoft.EntityFrameworkCore;
+using PoEManagementLib.BusinessObject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace PoEManagementLib.DataAccess
             try
             {
                 using var context = new Prn221DBContext();
-                recuitments = context.Recuitments.ToList();
+                recuitments = context.Recuitments.Include(a => a.Applications).ToList();
             }
             catch (Exception ex)
             {
@@ -48,7 +49,7 @@ namespace PoEManagementLib.DataAccess
             try
             {
                 using var context = new Prn221DBContext();
-                recuitment = context.Recuitments.SingleOrDefault(c => c.Id.Equals(recuitmentId));
+                recuitment = context.Recuitments.Include(a => a.Applications).SingleOrDefault(c => c.Id.Equals(recuitmentId));
             }
             catch (Exception ex)
             {

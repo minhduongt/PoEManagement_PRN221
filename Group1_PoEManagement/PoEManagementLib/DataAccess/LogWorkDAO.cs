@@ -1,4 +1,5 @@
-﻿using PoEManagementLib.BusinessObject;
+﻿using Microsoft.EntityFrameworkCore;
+using PoEManagementLib.BusinessObject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace PoEManagementLib.DataAccess
             try
             {
                 using var context = new Prn221DBContext();
-                logWorks = context.LogWorks.ToList();
+                logWorks = context.LogWorks.Include(a => a.Employee).ToList();
             }
             catch (Exception ex)
             {
@@ -48,7 +49,7 @@ namespace PoEManagementLib.DataAccess
             try
             {
                 using var context = new Prn221DBContext();
-                logWork = context.LogWorks.SingleOrDefault(c => c.Id.Equals(logWorkId));
+                logWork = context.LogWorks.Include(a => a.Employee).SingleOrDefault(c => c.Id.Equals(logWorkId));
             }
             catch (Exception ex)
             {

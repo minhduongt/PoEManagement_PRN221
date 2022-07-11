@@ -97,8 +97,8 @@
                                 <li>
                                     <a href="#">
                                         <span class="text-white font-medium">
-                                            Welcome @{if (account.IsManager == true)
-                                                {<span>Manager</span>} } , @account.Email
+                                            Welcome @{if (account != null && account.IsManager == true)
+                                                {<span>Manager, @account.Email</span>} } 
                                             </span>
                                         </a>
                                     </li>

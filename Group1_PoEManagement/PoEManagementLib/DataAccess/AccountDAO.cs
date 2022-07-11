@@ -1,4 +1,5 @@
-﻿using PoEManagementLib.BusinessObject;
+﻿using Microsoft.EntityFrameworkCore;
+using PoEManagementLib.BusinessObject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
