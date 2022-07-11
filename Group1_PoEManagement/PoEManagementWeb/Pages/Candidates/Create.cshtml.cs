@@ -18,6 +18,7 @@ namespace PoEManagementWeb.Pages.Candidates
             return Page();
         }
 
+        
         [BindProperty]
         public Candidate Candidate { get; set; }
 
@@ -38,8 +39,7 @@ namespace PoEManagementWeb.Pages.Candidates
                 return Page();
             }
 
-            _context.Candidates.Add(Candidate);
-            await _context.SaveChangesAsync();
+            //_context.Candidates.Add(Candidate);
 
             return RedirectToPage("./Index");
         }

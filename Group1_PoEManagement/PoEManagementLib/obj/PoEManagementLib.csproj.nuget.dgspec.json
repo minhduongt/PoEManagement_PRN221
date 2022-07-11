@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\FPTU Resources\\PRN221\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementLib\\PoEManagementLib.csproj": {}
+    "D:\\Github\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementLib\\PoEManagementLib.csproj": {}
   },
   "projects": {
-    "D:\\FPTU Resources\\PRN221\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementLib\\PoEManagementLib.csproj": {
+    "D:\\Github\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementLib\\PoEManagementLib.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\FPTU Resources\\PRN221\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementLib\\PoEManagementLib.csproj",
+        "projectUniqueName": "D:\\Github\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementLib\\PoEManagementLib.csproj",
         "projectName": "PoEManagementLib",
-        "projectPath": "D:\\FPTU Resources\\PRN221\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementLib\\PoEManagementLib.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\FPTU Resources\\PRN221\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementLib\\obj\\",
+        "projectPath": "D:\\Github\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementLib\\PoEManagementLib.csproj",
+        "packagesPath": "C:\\Users\\win 10\\.nuget\\packages\\",
+        "outputPath": "D:\\Github\\PoEManagement_PRN221\\Group1_PoEManagement\\PoEManagementLib\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "D:\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\win 10\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -80,7 +76,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
         }
       }
     }

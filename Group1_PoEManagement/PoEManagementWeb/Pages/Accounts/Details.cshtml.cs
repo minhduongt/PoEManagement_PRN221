@@ -35,7 +35,7 @@ namespace PoEManagementWeb.Pages.Accounts
                 return NotFound();
             }
 
-            Account = accountRepository.GetAccountByID(id);
+            Account = accountRepository.GetAccountByID((int)id);
 
             if (Account == null)
             {

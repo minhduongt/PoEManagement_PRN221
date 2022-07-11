@@ -76,6 +76,9 @@ namespace PoEManagementWeb.Pages.Accounts
             return RedirectToPage("./Index");
         }
 
-        
+        private bool AccountExists(int id)
+        {
+            return accountRepository.GetAccounts().Any(e => e.Id == id);
+        }
     }
 }

@@ -13,3 +13,11 @@ D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagement
 D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\bin\Debug\net5.0\PoEManagementLib.runtimeconfig.dev.json
 D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\obj\Debug\net5.0\PoEManagementLib.genruntimeconfig.cache
 D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\obj\Debug\net5.0\PoEManagementLib.csprojAssemblyReference.cache
+D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\obj\Debug\net5.0\PoEManagementLib.csproj.AssemblyReference.cache
+D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\obj\Debug\net5.0\PoEManagementLib.GeneratedMSBuildEditorConfig.editorconfig
+D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\obj\Debug\net5.0\PoEManagementLib.AssemblyInfoInputs.cache
+D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\obj\Debug\net5.0\PoEManagementLib.AssemblyInfo.cs
+D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\obj\Debug\net5.0\PoEManagementLib.csproj.CoreCompileInputs.cache
+D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\obj\Debug\net5.0\PoEManagementLib.dll
+D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\obj\Debug\net5.0\ref\PoEManagementLib.dll
+D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementLib\obj\Debug\net5.0\PoEManagementLib.pdb

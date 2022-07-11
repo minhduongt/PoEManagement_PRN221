@@ -64,7 +64,7 @@ namespace PoEManagementWeb.Pages.Bonuses
 
         private bool BonusExists(int id)
         {
-            return _context.Bonus.Any(e => e.Id == id);
+            return bonusRepository.GetBonuss().Any(e => e.Id == id);
         }
     }
 }

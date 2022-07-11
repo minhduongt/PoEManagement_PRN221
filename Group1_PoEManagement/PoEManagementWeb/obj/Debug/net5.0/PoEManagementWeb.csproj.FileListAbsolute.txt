@@ -194,3 +194,14 @@ D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagement
 D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\RequestOts\Details.cshtml.g.cs
 D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\RequestOts\Edit.cshtml.g.cs
 D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\RequestOts\Index.cshtml.g.cs
+D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\PoEManagementWeb.csproj.AssemblyReference.cache
+D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\PoEManagementWeb.GeneratedMSBuildEditorConfig.editorconfig
+D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\PoEManagementWeb.AssemblyInfoInputs.cache
+D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\PoEManagementWeb.AssemblyInfo.cs
+D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\PoEManagementWeb.csproj.CoreCompileInputs.cache
+D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\PoEManagementWeb.MvcApplicationPartsAssemblyInfo.cache
+D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\PoEManagementWeb.RazorAssemblyInfo.cache
+D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\PoEManagementWeb.RazorAssemblyInfo.cs
+D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\PoEManagementWeb.dll
+D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\ref\PoEManagementWeb.dll
+D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\PoEManagementWeb.pdb

@@ -1,7 +1,5 @@
 ﻿using PoEManagementLib.BusinessObject.MyValidation;
-using PoEManagementLib.BusinessObject.Validation;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 #nullable disable
