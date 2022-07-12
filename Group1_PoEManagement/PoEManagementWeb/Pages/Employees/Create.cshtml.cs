@@ -39,11 +39,16 @@ namespace PoEManagementWeb.Pages.Employees
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            ViewData["DepartmentId"] = new SelectList(departmentRepository.GetDepartments(), "Id", "DepartmentName");
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-
+            if (DateTime.Now.Year - Employee.DoB.Year < 20 || DateTime.Now.Year - Employee.DoB.Year > 65)
+            {
+                TempData["Error"] = "Must be more than 20 years old or less 65 years old";
+                return Page();
+            }
             employeeRepository.InsertEmployee(Employee);
 
             return RedirectToPage("./Index");

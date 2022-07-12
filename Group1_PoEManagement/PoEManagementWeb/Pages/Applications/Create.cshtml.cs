@@ -6,22 +6,17 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
 using PoEManagementLib.DataAccess.Repository;
 
-namespace PoEManagementWeb.Pages.Aplications
+namespace PoEManagementWeb.Pages.Applications
 {
-    public class EditModel : PageModel
+    public class CreateModel : PageModel
     {
         IApplicationRepository applicationRepository = new ApplicationRepository();
         IRecuitmentRepository recuitmentRepository = new RecuitmentRepository();
-
-        [BindProperty]
-        public Application Application { get; set; }
-
-        public async Task<IActionResult> OnGetAsync(int id)
+        public IActionResult OnGet(string RecuitmentId)
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
@@ -30,36 +25,26 @@ namespace PoEManagementWeb.Pages.Aplications
                 TempData["Error"] = "Please login.";
                 return RedirectToPage("/Login");
             }
-            if (LoginEmail != null && ManagerEmail == null)
-                return RedirectToPage("/Home");
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            Application = applicationRepository.GetApplicationByID(id);
-
-            if (Application == null)
-            {
-                return NotFound();
-            }
-           ViewData["RecuitmentId"] = new SelectList(recuitmentRepository.GetRecuitments(), "Id", "Title");
+            //ViewData["RecuitmentId"] = new SelectList(recuitmentRepository.GetRecuitments(), "Id", "Title");
+            TempData["RecuitmentId"] = RecuitmentId;
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
+        [BindProperty]
+        public Application Application { get; set; }
+
+        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            //ViewData["RecuitmentId"] = new SelectList(recuitmentRepository.GetRecuitments(), "Id", "Title");
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            applicationRepository.UpdateApplication(Application);
+            applicationRepository.InsertApplication(Application);
 
             return RedirectToPage("./Index");
         }
-
     }
 }

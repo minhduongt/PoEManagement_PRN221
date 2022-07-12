@@ -5,16 +5,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
 using PoEManagementLib.DataAccess.Repository;
 
-namespace PoEManagementWeb.Pages.Aplications
+namespace PoEManagementWeb.Pages.Applications
 {
-    public class DeleteModel : PageModel
+    public class EditModel : PageModel
     {
         IApplicationRepository applicationRepository = new ApplicationRepository();
+        IRecuitmentRepository recuitmentRepository = new RecuitmentRepository();
 
         [BindProperty]
         public Application Application { get; set; }
@@ -41,19 +43,24 @@ namespace PoEManagementWeb.Pages.Aplications
             {
                 return NotFound();
             }
+           ViewData["RecuitmentId"] = new SelectList(recuitmentRepository.GetRecuitments(), "Id", "Title");
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int id)
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see https://aka.ms/RazorPagesCRUD.
+        public async Task<IActionResult> OnPostAsync()
         {
-            if (id == null)
+            ViewData["RecuitmentId"] = new SelectList(recuitmentRepository.GetRecuitments(), "Id", "Title");
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return Page();
             }
 
-            applicationRepository.DeleteApplication(id);
+            applicationRepository.UpdateApplication(Application);
 
             return RedirectToPage("./Index");
         }
+
     }
 }

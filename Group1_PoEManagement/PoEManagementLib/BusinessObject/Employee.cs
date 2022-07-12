@@ -20,7 +20,7 @@ namespace PoEManagementLib.BusinessObject
         [Required(ErrorMessage = "Address is required!"), MinLength(2, ErrorMessage = "Minimum length is 2!")
          , MaxLength(100, ErrorMessage = "Maximum length is 100!")]
         public string Address { get; set; }
-        [DobValidation]
+        //[DobValidation]
         public DateTime DoB { get; set; }
         [Required(ErrorMessage = "Name is required!"), MinLength(2, ErrorMessage = "Minimum length is 2!")
         , MaxLength(50, ErrorMessage = "Maximum length is 50!")]

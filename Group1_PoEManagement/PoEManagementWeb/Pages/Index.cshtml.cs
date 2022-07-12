@@ -16,14 +16,14 @@ namespace PoEManagementWeb.Pages
     [BindProperties]
     public class IndexModel : PageModel
     {
-        IApplicationRepository applicationRepository = new ApplicationRepository();
-        public List<Application> Application { get; set; }
+        IRecuitmentRepository recuitmentRepository = new RecuitmentRepository();
+        public List<Recuitment> Recuitment { get; set; }
 
         public IActionResult OnGet()
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
-            Application = applicationRepository.GetApplications().ToList();
+            Recuitment = recuitmentRepository.GetRecuitments().ToList();
             return Page();
         }
     }

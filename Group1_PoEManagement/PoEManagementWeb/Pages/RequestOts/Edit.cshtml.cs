@@ -16,7 +16,7 @@ namespace PoEManagementWeb.Pages.RequestOts
     public class EditModel : PageModel
     {
         IRequestOtRepository requestOtRepository = new RequestOtRepository();
-
+        IEmployeeRepository employeeRepository = new EmployeeRepository();
         [BindProperty]
         public RequestOt RequestOt { get; set; }
 
@@ -36,7 +36,7 @@ namespace PoEManagementWeb.Pages.RequestOts
             {
                 return NotFound();
             }
-
+            ViewData["EmployeeId"] = new SelectList(employeeRepository.GetEmployees(), "Id", "Address");
             RequestOt = requestOtRepository.GetRequestOtByID(id);
 
             if (RequestOt == null)
@@ -50,6 +50,7 @@ namespace PoEManagementWeb.Pages.RequestOts
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            ViewData["EmployeeId"] = new SelectList(employeeRepository.GetEmployees(), "Id", "Address");
             if (!ModelState.IsValid)
             {
                 return Page();

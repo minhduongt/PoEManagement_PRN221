@@ -1,12 +1,12 @@
 ﻿@page
-@model PoEManagementWeb.Pages.Aplications.IndexModel
+@model PoEManagementWeb.Pages.Applications.IndexModel
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Applications</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -14,6 +14,9 @@
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Application[0].Id)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Application[0].Name)
             </th>
@@ -36,6 +39,9 @@
 @foreach (var item in Model.Application) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
@@ -51,7 +57,7 @@
                 @Html.DisplayFor(modelItem => item.Recuitment.Title)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                @*<a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |*@
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
             </td>

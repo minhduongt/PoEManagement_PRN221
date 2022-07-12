@@ -10,26 +10,26 @@ using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
 using PoEManagementLib.DataAccess.Repository;
 
-namespace PoEManagementWeb.Pages.Aplications
+namespace PoEManagementWeb.Pages
 {
-    public class IndexModel : PageModel
+    public class MyApplications : PageModel
     {
+        IAccountRepository accountRepository = new AccountRepository();
+        IEmployeeRepository employeeRepository = new EmployeeRepository();
         IApplicationRepository applicationRepository = new ApplicationRepository();
 
-        public List<Application> Application { get;set; }
+        public List<Application> Applications { get; set; }
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
-            string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
             if (LoginEmail == null)
             {
                 TempData["Error"] = "Please login.";
-                 RedirectToPage("/Login");
+                return RedirectToPage("/Login");
             }
-            if (LoginEmail != null && ManagerEmail == null)
-                 RedirectToPage("/Home");
-            Application = applicationRepository.GetApplications().ToList();
+            Applications = applicationRepository.GetApplications().Where(a => a.Email == LoginEmail).ToList();
+            return Page();
         }
     }
 }

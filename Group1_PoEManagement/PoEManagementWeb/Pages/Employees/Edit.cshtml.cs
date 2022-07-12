@@ -36,8 +36,13 @@ namespace PoEManagementWeb.Pages.Employees
             {
                 return NotFound();
             }
-
             Employee = employeeRepository.GetEmployeeByID(id);
+            if (DateTime.Now.Year - Employee.DoB.Year < 20 || DateTime.Now.Year - Employee.DoB.Year > 65)
+            {
+                TempData["Error"] = "Must be more than 20 years old or less 65 years old";
+                return Page();
+            }
+            
 
             if (Employee == null)
             {
@@ -51,6 +56,7 @@ namespace PoEManagementWeb.Pages.Employees
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            ViewData["DepartmentId"] = new SelectList(departmentRepository.GetDepartments(), "Id", "DepartmentName");
             if (!ModelState.IsValid)
             {
                 return Page();

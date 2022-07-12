@@ -25,8 +25,10 @@ namespace PoEManagementWeb.Pages
             _configuration = configuration;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(string Message)
         {
+            //if(Message != null)
+            //    TempData["Error"] = "Login or Register to apply for job";
             return Page();
         }
 
@@ -51,15 +53,19 @@ namespace PoEManagementWeb.Pages
                 HttpContext.Session.SetString("LoginEmail", Account.Email);
                 if(loginUser.IsManager == true)
                     HttpContext.Session.SetString("ManagerEmail", Account.Email);
-                return RedirectToPage("/Home");
+                else
+                {
+                    return RedirectToPage("/Index");
+                }
+               
             }
             else
             {
                 TempData["InputEmail"] = Account.Email;
                 TempData["Error"] = "Login failed! Check your username or password.";
-                return Page();
+                
             }
-
+            return Page();
         }
 
         public IActionResult OnGetLogout()

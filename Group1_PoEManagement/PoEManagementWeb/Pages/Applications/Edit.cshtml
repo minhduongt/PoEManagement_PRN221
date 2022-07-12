@@ -1,12 +1,12 @@
 ﻿@page
-@model PoEManagementWeb.Pages.Aplications.CreateModel
+@model PoEManagementWeb.Pages.Applications.EditModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Edit</h1>
 
 <h4>Application</h4>
 <hr />
@@ -14,11 +14,7 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Application.Id" class="control-label"></label>
-                <input asp-for="Application.Id" class="form-control" />
-                <span asp-validation-for="Application.Id" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="Application.Id" />
             <div class="form-group">
                 <label asp-for="Application.Name" class="control-label"></label>
                 <input asp-for="Application.Name" class="form-control" />
@@ -36,7 +32,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Application.RecuitmentId" class="control-label"></label>
-                <select asp-for="Application.RecuitmentId" class ="form-control" asp-items="ViewBag.RecuitmentId"></select>
+                <select asp-for="Application.RecuitmentId" class="form-control" asp-items="ViewBag.RecuitmentId"></select>
+                <span asp-validation-for="Application.RecuitmentId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Application.Status" class="control-label"></label>
@@ -44,14 +41,14 @@
                 <span asp-validation-for="Application.Status" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-page="./Index">Back to List</a>
 </div>
 
 @section Scripts {

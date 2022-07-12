@@ -38,6 +38,7 @@ namespace PoEManagementWeb.Pages.Bonuses
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            ViewData["EmployeeId"] = new SelectList(employeeRepository.GetEmployees(), "Id", "Address");
             if (!ModelState.IsValid)
             {
                 return Page();

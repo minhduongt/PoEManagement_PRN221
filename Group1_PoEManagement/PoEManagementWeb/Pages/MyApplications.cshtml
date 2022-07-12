@@ -1,0 +1,62 @@
+﻿@page
+@model PoEManagementWeb.Pages.MyApplications
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>My Applications</h1>
+
+<div>
+    <hr />
+   
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Applications[0].Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Applications[0].Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Applications[0].Cvimage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Applications[0].Status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Applications[0].Recuitment)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Applications)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cvimage)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Recuitment.Title)
+                    </td>
+                    <td>
+                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> 
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

@@ -1,23 +1,37 @@
 ﻿@page
-@model PoEManagementWeb.Pages.Candidates.CreateModel
+@model PoEManagementWeb.Pages.Apply.ApplyModel
 
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
 
-<h4>Candidate</h4>
-<hr />
-<div class="row">
+<div class="row" style="justify-content:center">
     <div class="col-md-4">
+        <h1>Apply for The job @TempData["RecuitmentTitle"]</h1>
+ 
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Candidate.Id" class="control-label"></label>
-                <input asp-for="Candidate.Id" class="form-control" />
-                <span asp-validation-for="Candidate.Id" class="text-danger"></span>
+                <label class="control-label">Introduction</label>
+                <input asp-for="Application.Name" class="form-control" />
+                <span asp-validation-for="Application.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Application.Email" class="control-label"></label>
+                <input asp-for="Application.Email" class="form-control" />
+                <span asp-validation-for="Application.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Application.Cvimage" class="control-label"></label>
+                <input asp-for="Application.Cvimage" class="form-control" />
+                <span asp-validation-for="Application.Cvimage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<select asp-for="Application.RecuitmentId" class ="form-control" asp-items="ViewBag.RecuitmentId"></select>*@
+                <input asp-for="Application.RecuitmentId" value="@TempData["RecuitmentId"]" class="form-control" hidden />
+                <span asp-validation-for="Application.RecuitmentId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Candidate.Address" class="control-label"></label>
@@ -29,20 +43,10 @@
                 <input asp-for="Candidate.DoB" class="form-control" />
                 <span asp-validation-for="Candidate.DoB" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                <label asp-for="Candidate.Deleted" class="control-label"></label>
-                <input asp-for="Candidate.Deleted" class="form-control" />
-                <span asp-validation-for="Candidate.Deleted" class="text-danger"></span>
-            </div>*@
             <div class="form-group">
                 <label asp-for="Candidate.Name" class="control-label"></label>
                 <input asp-for="Candidate.Name" class="form-control" />
                 <span asp-validation-for="Candidate.Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Candidate.ApplicationId" class="control-label"></label>
-                <input asp-for="Candidate.ApplicationId" class="form-control" />
-                <span asp-validation-for="Candidate.ApplicationId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

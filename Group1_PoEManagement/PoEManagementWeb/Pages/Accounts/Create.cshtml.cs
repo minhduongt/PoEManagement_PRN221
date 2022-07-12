@@ -28,7 +28,7 @@ namespace PoEManagementWeb.Pages.Accounts
             }
             if (LoginEmail != null && ManagerEmail == null)
                 return RedirectToPage("/Home");
-            ViewData["Id"] = new SelectList(employeeRepository.GetEmployees(), "Id", "Address");
+            ViewData["Id"] = new SelectList(employeeRepository.GetEmployees(), "Id", "Name");
             return Page();
         }
 
@@ -38,6 +38,7 @@ namespace PoEManagementWeb.Pages.Accounts
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            ViewData["Id"] = new SelectList(employeeRepository.GetEmployees(), "Id", "Name");
             if (!ModelState.IsValid)
             {
                 return Page();

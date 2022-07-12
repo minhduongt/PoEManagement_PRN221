@@ -5,18 +5,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
 using PoEManagementLib.DataAccess.Repository;
 
-namespace PoEManagementWeb.Pages.Aplications
+namespace PoEManagementWeb.Pages.Applications
 {
-    public class CreateModel : PageModel
+    public class DetailsModel : PageModel
     {
         IApplicationRepository applicationRepository = new ApplicationRepository();
-        IRecuitmentRepository recuitmentRepository = new RecuitmentRepository();
-        public IActionResult OnGet()
+
+        public Application Application { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
@@ -27,25 +29,18 @@ namespace PoEManagementWeb.Pages.Aplications
             }
             if (LoginEmail != null && ManagerEmail == null)
                 return RedirectToPage("/Home");
-            ViewData["RecuitmentId"] = new SelectList(recuitmentRepository.GetRecuitments(), "Id", "Title");
-            return Page();
-        }
-
-        [BindProperty]
-        public Application Application { get; set; }
-
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
-        {
-
-            if (!ModelState.IsValid)
+            if (id == null)
             {
-                return Page();
+                return NotFound();
             }
 
-            applicationRepository.InsertApplication(Application);
+            Application = applicationRepository.GetApplicationByID(id);
 
-            return RedirectToPage("./Index");
+            if (Application == null)
+            {
+                return NotFound();
+            }
+            return Page();
         }
     }
 }

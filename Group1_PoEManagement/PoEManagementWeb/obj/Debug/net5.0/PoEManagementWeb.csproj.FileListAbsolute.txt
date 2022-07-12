@@ -153,11 +153,6 @@ D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagement
 D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\Accounts\Edit.cshtml.g.cs
 D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\Accounts\Index.cshtml.g.cs
 D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\Accounts\Create.cshtml.g.cs
-D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\Aplications\Create.cshtml.g.cs
-D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\Aplications\Delete.cshtml.g.cs
-D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\Aplications\Details.cshtml.g.cs
-D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\Aplications\Edit.cshtml.g.cs
-D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\Aplications\Index.cshtml.g.cs
 D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\Employees\Create.cshtml.g.cs
 D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\Employees\Delete.cshtml.g.cs
 D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\Employees\Details.cshtml.g.cs
@@ -206,3 +201,11 @@ D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\n
 D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\ref\PoEManagementWeb.dll
 D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\PoEManagementWeb.pdb
 D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\Register.cshtml.g.cs
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\MyProfile.cshtml.g.cs
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\MyApplications.cshtml.g.cs
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\Applications\Create.cshtml.g.cs
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\Applications\Delete.cshtml.g.cs
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\Applications\Details.cshtml.g.cs
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\Applications\Edit.cshtml.g.cs
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\Applications\Index.cshtml.g.cs
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\Apply.cshtml.g.cs

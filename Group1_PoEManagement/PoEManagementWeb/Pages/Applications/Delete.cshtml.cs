@@ -5,18 +5,21 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
 using PoEManagementLib.DataAccess.Repository;
 
-namespace PoEManagementWeb.Pages.RequestOts
+namespace PoEManagementWeb.Pages.Applications
 {
-    public class CreateModel : PageModel
+    public class DeleteModel : PageModel
     {
-        IRequestOtRepository requestOtRepository = new RequestOtRepository();
-        IEmployeeRepository employeeRepository = new EmployeeRepository();
-        public IActionResult OnGet()
+        IApplicationRepository applicationRepository = new ApplicationRepository();
+
+        [BindProperty]
+        public Application Application { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
@@ -27,18 +30,28 @@ namespace PoEManagementWeb.Pages.RequestOts
             }
             if (LoginEmail != null && ManagerEmail == null)
                 return RedirectToPage("/Home");
-            ViewData["EmployeeId"] = new SelectList(employeeRepository.GetEmployees(), "Id", "Address");
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Application = applicationRepository.GetApplicationByID(id);
+
+            if (Application == null)
+            {
+                return NotFound();
+            }
             return Page();
         }
 
-        [BindProperty]
-        public RequestOt RequestOt { get; set; }
-
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int id)
         {
-            ViewData["EmployeeId"] = new SelectList(employeeRepository.GetEmployees(), "Id", "Address");
-            requestOtRepository.InsertRequestOt(RequestOt);
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            applicationRepository.DeleteApplication(id);
 
             return RedirectToPage("./Index");
         }
