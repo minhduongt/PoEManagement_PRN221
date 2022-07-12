@@ -42,6 +42,11 @@ namespace PoEManagementWeb.Pages.Apply
         public async Task<IActionResult> OnPostAsync()
         {
             //ViewData["RecuitmentId"] = new SelectList(recuitmentRepository.GetRecuitments(), "Id", "Title");
+            if (DateTime.Now.Year - Candidate.DoB.Year < 20 || DateTime.Now.Year - Candidate.DoB.Year > 65)
+            {
+                TempData["Error"] = "Must be more than 20 years old or less 65 years old to apply";
+                return Page();
+            }
             ApplicationList = applicationRepository.GetApplications().ToList();
             CandidateList = candidateRepository.GetCandidates().ToList();
             Candidate.Id = 1;
