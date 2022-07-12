@@ -9,32 +9,22 @@ using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
 
 using Microsoft.AspNetCore.Http;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages
 {
     [BindProperties]
     public class IndexModel : PageModel
     {
-        private readonly Prn221DBContext _context;
-
-        public IndexModel(Prn221DBContext context)
-        {
-            _context = context;
-
-        }
+        IApplicationRepository applicationRepository = new ApplicationRepository();
+        public List<Application> Application { get; set; }
 
         public IActionResult OnGet()
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
-            if (LoginEmail == null)
-            {
-                return RedirectToPage("/Login");
-            }
-            else if (LoginEmail != null && ManagerEmail == null)
-                return Page();
-            else
-                return RedirectToPage("/Home");
+            Application = applicationRepository.GetApplications().ToList();
+            return Page();
         }
     }
 }
