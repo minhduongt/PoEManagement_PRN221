@@ -31,7 +31,7 @@ namespace PoEManagementWeb.Pages.Employees
             }
             if (LoginEmail != null && ManagerEmail == null)
                  RedirectToPage("/Home");
-            Employee = employeeRepository.GetEmployees().ToList();
+            Employee = employeeRepository.GetEmployees().Where(a => a.Deleted != true).ToList();
             //Paging
             var pageIndex = pageNumber;
             if (pageIndex == 0) TempData["PreDisabled"] = "disabled";

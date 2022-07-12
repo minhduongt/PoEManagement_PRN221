@@ -9,22 +9,18 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Candidates
 {
     public class EditModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public EditModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        ICandidateRepository candidateRepository = new CandidateRepository();
 
         [BindProperty]
         public Candidate Candidate { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
@@ -41,7 +37,7 @@ namespace PoEManagementWeb.Pages.Candidates
                 return NotFound();
             }
 
-            Candidate = await _context.Candidates.FirstOrDefaultAsync(m => m.Id == id);
+            Candidate = candidateRepository.GetCandidateByID(id);
 
             if (Candidate == null)
             {
@@ -59,30 +55,11 @@ namespace PoEManagementWeb.Pages.Candidates
                 return Page();
             }
 
-            _context.Attach(Candidate).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CandidateExists(Candidate.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            candidateRepository.UpdateCandidate(Candidate);
 
             return RedirectToPage("./Index");
         }
 
-        private bool CandidateExists(int id)
-        {
-            return _context.Candidates.Any(e => e.Id == id);
-        }
+       
     }
 }

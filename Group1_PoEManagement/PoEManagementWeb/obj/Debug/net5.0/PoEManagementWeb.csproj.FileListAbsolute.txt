@@ -205,3 +205,4 @@ D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\n
 D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\PoEManagementWeb.dll
 D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\ref\PoEManagementWeb.dll
 D:\Github\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\PoEManagementWeb.pdb
+D:\FPTU Resources\PRN221\PoEManagement_PRN221\Group1_PoEManagement\PoEManagementWeb\obj\Debug\net5.0\Razor\Pages\Register.cshtml.g.cs

@@ -8,17 +8,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Departments
 {
     public class IndexModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public IndexModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        IDepartmentRepository departmentRepository = new DepartmentRepository();
 
         public IList<Department> Department { get;set; }
 
@@ -34,7 +30,7 @@ namespace PoEManagementWeb.Pages.Departments
             if (LoginEmail != null && ManagerEmail == null)
                  RedirectToPage("/Home");
 
-            Department = await _context.Departments.ToListAsync();
+            Department = departmentRepository.GetDepartments().Where(a => a.Deleted != true).ToList();
         }
     }
 }

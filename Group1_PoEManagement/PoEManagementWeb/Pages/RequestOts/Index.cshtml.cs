@@ -8,17 +8,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.RequestOts
 {
     public class IndexModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public IndexModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        IRequestOtRepository requestOtRepository = new RequestOtRepository();
 
         public IList<RequestOt> RequestOt { get;set; }
 
@@ -34,7 +30,7 @@ namespace PoEManagementWeb.Pages.RequestOts
             if (LoginEmail != null && ManagerEmail == null)
                  RedirectToPage("/Home");
 
-            RequestOt = await _context.RequestOts.ToListAsync();
+            RequestOt = requestOtRepository.GetRequestOts().Where(a => a.Deleted != true).ToList();
         }
     }
 }

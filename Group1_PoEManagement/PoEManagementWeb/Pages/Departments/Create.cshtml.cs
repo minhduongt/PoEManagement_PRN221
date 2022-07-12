@@ -8,17 +8,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Departments
 {
     public class CreateModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public CreateModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        IDepartmentRepository departmentRepository = new DepartmentRepository();
 
         public IActionResult OnGet()
         {
@@ -46,8 +42,7 @@ namespace PoEManagementWeb.Pages.Departments
                 return Page();
             }
 
-            _context.Departments.Add(Department);
-            await _context.SaveChangesAsync();
+            departmentRepository.InsertDepartment(Department);
 
             return RedirectToPage("./Index");
         }

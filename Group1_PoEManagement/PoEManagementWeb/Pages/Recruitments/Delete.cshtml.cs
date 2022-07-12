@@ -7,30 +7,25 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Recruitments
 {
     public class DeleteModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public DeleteModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        IRecuitmentRepository recuitmentRepository = new RecuitmentRepository();
 
         [BindProperty]
         public Recuitment Recuitment { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Recuitment = await _context.Recuitments.FirstOrDefaultAsync(m => m.Id == id);
-
+            Recuitment = recuitmentRepository.GetRecuitmentByID(id);
             if (Recuitment == null)
             {
                 return NotFound();
@@ -38,20 +33,14 @@ namespace PoEManagementWeb.Pages.Recruitments
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Recuitment = await _context.Recuitments.FindAsync(id);
-
-            if (Recuitment != null)
-            {
-                _context.Recuitments.Remove(Recuitment);
-                await _context.SaveChangesAsync();
-            }
+            recuitmentRepository.DeleteRecuitment(id);
 
             return RedirectToPage("./Index");
         }

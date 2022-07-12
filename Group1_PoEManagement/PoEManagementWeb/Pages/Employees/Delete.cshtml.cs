@@ -8,22 +8,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Employees
 {
     public class DeleteModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public DeleteModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        IEmployeeRepository employeeRepository = new EmployeeRepository();
 
         [BindProperty]
         public Employee Employee { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
@@ -40,8 +36,7 @@ namespace PoEManagementWeb.Pages.Employees
                 return NotFound();
             }
 
-            Employee = await _context.Employees
-                .Include(e => e.Department).FirstOrDefaultAsync(m => m.Id == id);
+            Employee = employeeRepository.GetEmployeeByID(id);
 
             if (Employee == null)
             {
@@ -50,19 +45,18 @@ namespace PoEManagementWeb.Pages.Employees
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Employee = await _context.Employees.FindAsync(id);
+           
 
             if (Employee != null)
             {
-                _context.Employees.Remove(Employee);
-                await _context.SaveChangesAsync();
+                employeeRepository.DeleteEmployee(id);
             }
 
             return RedirectToPage("./Index");

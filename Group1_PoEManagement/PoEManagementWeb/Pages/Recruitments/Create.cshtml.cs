@@ -7,18 +7,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Recruitments
 {
     public class CreateModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public CreateModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
-
+        IRecuitmentRepository recuitmentRepository = new RecuitmentRepository();
         public IActionResult OnGet()
         {
             return Page();
@@ -35,8 +30,7 @@ namespace PoEManagementWeb.Pages.Recruitments
                 return Page();
             }
 
-            _context.Recuitments.Add(Recuitment);
-            await _context.SaveChangesAsync();
+            recuitmentRepository.InsertRecuitment(Recuitment);
 
             return RedirectToPage("./Index");
         }

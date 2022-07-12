@@ -32,7 +32,7 @@ namespace PoEManagementWeb.Pages.Accounts
             if (LoginEmail != null && ManagerEmail == null)
                 RedirectToPage("/Home");
 
-            Account = accountRepository.GetAccounts().ToList();
+            Account = accountRepository.GetAccounts().Where(a => a.Deleted != true).ToList();
             var pageIndex = pageNumber;
             if (pageIndex == 0) TempData["PreDisabled"] = "disabled";
             if ((pageIndex * 10 + 10) < Account.Count()) Account = Account.GetRange(pageIndex * 10, 10);

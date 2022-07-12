@@ -8,21 +8,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.RequestOts
 {
     public class DetailsModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public DetailsModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        IRequestOtRepository requestOtRepository = new RequestOtRepository();
 
         public RequestOt RequestOt { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
@@ -39,7 +35,7 @@ namespace PoEManagementWeb.Pages.RequestOts
                 return NotFound();
             }
 
-            RequestOt = await _context.RequestOts.FirstOrDefaultAsync(m => m.Id == id);
+            RequestOt = requestOtRepository.GetRequestOtByID(id);
 
             if (RequestOt == null)
             {

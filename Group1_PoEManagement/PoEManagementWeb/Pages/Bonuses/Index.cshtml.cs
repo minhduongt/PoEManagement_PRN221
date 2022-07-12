@@ -30,7 +30,7 @@ namespace PoEManagementWeb.Pages.Bonuses
             if (LoginEmail != null && ManagerEmail == null)
                  RedirectToPage("/Home");
 
-            Bonus = bonusRepository.GetBonuss().ToList();
+            Bonus = bonusRepository.GetBonuss().Where(a => a.Deleted != true).ToList();
         }
     }
 }

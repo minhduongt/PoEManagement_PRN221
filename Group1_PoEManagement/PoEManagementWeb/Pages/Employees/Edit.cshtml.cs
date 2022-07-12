@@ -9,22 +9,18 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Employees
 {
     public class EditModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public EditModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
-
+        IEmployeeRepository employeeRepository = new EmployeeRepository();
+        IDepartmentRepository departmentRepository = new DepartmentRepository();
         [BindProperty]
         public Employee Employee { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
@@ -41,14 +37,13 @@ namespace PoEManagementWeb.Pages.Employees
                 return NotFound();
             }
 
-            Employee = await _context.Employees
-                .Include(e => e.Department).FirstOrDefaultAsync(m => m.Id == id);
+            Employee = employeeRepository.GetEmployeeByID(id);
 
             if (Employee == null)
             {
                 return NotFound();
             }
-           ViewData["DepartmentId"] = new SelectList(_context.Departments, "Id", "DepartmentName");
+           ViewData["DepartmentId"] = new SelectList(departmentRepository.GetDepartments(), "Id", "DepartmentName");
             return Page();
         }
 
@@ -61,30 +56,11 @@ namespace PoEManagementWeb.Pages.Employees
                 return Page();
             }
 
-            _context.Attach(Employee).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EmployeeExists(Employee.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            employeeRepository.UpdateEmployee(Employee);
 
             return RedirectToPage("./Index");
         }
 
-        private bool EmployeeExists(int id)
-        {
-            return _context.Employees.Any(e => e.Id == id);
-        }
+        
     }
 }

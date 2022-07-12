@@ -8,22 +8,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Candidates
 {
     public class DeleteModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public DeleteModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
-
+        ICandidateRepository candidateRepository = new CandidateRepository();
         [BindProperty]
         public Candidate Candidate { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
@@ -40,7 +35,7 @@ namespace PoEManagementWeb.Pages.Candidates
                 return NotFound();
             }
 
-            Candidate = await _context.Candidates.FirstOrDefaultAsync(m => m.Id == id);
+            Candidate = candidateRepository.GetCandidateByID(id);
 
             if (Candidate == null)
             {
@@ -49,20 +44,14 @@ namespace PoEManagementWeb.Pages.Candidates
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Candidate = await _context.Candidates.FindAsync(id);
-
-            if (Candidate != null)
-            {
-                _context.Candidates.Remove(Candidate);
-                await _context.SaveChangesAsync();
-            }
+            candidateRepository.DeleteCandidate(id);
 
             return RedirectToPage("./Index");
         }

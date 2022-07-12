@@ -30,7 +30,7 @@ namespace PoEManagementWeb.Pages.Logworks
             if (LoginEmail != null && ManagerEmail == null)
                  RedirectToPage("/Home");
 
-            LogWork = logWorkRepository.GetLogWorks().ToList();
+            LogWork = logWorkRepository.GetLogWorks().Where(a => a.Deleted != true).ToList();
         }
     }
 }

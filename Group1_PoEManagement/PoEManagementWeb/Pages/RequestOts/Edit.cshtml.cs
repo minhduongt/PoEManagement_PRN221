@@ -9,22 +9,18 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.RequestOts
 {
     public class EditModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public EditModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        IRequestOtRepository requestOtRepository = new RequestOtRepository();
 
         [BindProperty]
         public RequestOt RequestOt { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
@@ -41,7 +37,7 @@ namespace PoEManagementWeb.Pages.RequestOts
                 return NotFound();
             }
 
-            RequestOt = await _context.RequestOts.FirstOrDefaultAsync(m => m.Id == id);
+            RequestOt = requestOtRepository.GetRequestOtByID(id);
 
             if (RequestOt == null)
             {
@@ -59,30 +55,10 @@ namespace PoEManagementWeb.Pages.RequestOts
                 return Page();
             }
 
-            _context.Attach(RequestOt).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RequestOtExists(RequestOt.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            requestOtRepository.UpdateRequestOt(RequestOt);
 
             return RedirectToPage("./Index");
         }
 
-        private bool RequestOtExists(int id)
-        {
-            return _context.RequestOts.Any(e => e.Id == id);
-        }
     }
 }

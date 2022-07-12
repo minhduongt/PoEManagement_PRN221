@@ -8,17 +8,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.RequestOts
 {
     public class CreateModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public CreateModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        IRequestOtRepository requestOtRepository = new RequestOtRepository();
 
         public IActionResult OnGet()
         {
@@ -42,13 +38,7 @@ namespace PoEManagementWeb.Pages.RequestOts
         public async Task<IActionResult> OnPostAsync()
         {
 
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            _context.RequestOts.Add(RequestOt);
-            await _context.SaveChangesAsync();
+            requestOtRepository.InsertRequestOt(RequestOt);
 
             return RedirectToPage("./Index");
         }

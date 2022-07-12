@@ -8,29 +8,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Recruitments
 {
     public class EditModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public EditModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        IRecuitmentRepository recuitmentRepository = new RecuitmentRepository();
 
         [BindProperty]
         public Recuitment Recuitment { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Recuitment = await _context.Recuitments.FirstOrDefaultAsync(m => m.Id == id);
+            Recuitment = recuitmentRepository.GetRecuitmentByID(id);
 
             if (Recuitment == null)
             {
@@ -48,30 +44,10 @@ namespace PoEManagementWeb.Pages.Recruitments
                 return Page();
             }
 
-            _context.Attach(Recuitment).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RecuitmentExists(Recuitment.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            recuitmentRepository.UpdateRecuitment(Recuitment);
 
             return RedirectToPage("./Index");
         }
 
-        private bool RecuitmentExists(int id)
-        {
-            return _context.Recuitments.Any(e => e.Id == id);
-        }
     }
 }

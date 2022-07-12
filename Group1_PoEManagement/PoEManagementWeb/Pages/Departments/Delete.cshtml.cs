@@ -8,22 +8,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Departments
 {
     public class DeleteModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public DeleteModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        IDepartmentRepository departmentRepository = new DepartmentRepository();
 
         [BindProperty]
         public Department Department { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
@@ -40,7 +36,7 @@ namespace PoEManagementWeb.Pages.Departments
                 return NotFound();
             }
 
-            Department = await _context.Departments.FirstOrDefaultAsync(m => m.Id == id);
+            Department = departmentRepository.GetDepartmentByID(id);
 
             if (Department == null)
             {
@@ -49,20 +45,14 @@ namespace PoEManagementWeb.Pages.Departments
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Department = await _context.Departments.FindAsync(id);
-
-            if (Department != null)
-            {
-                _context.Departments.Remove(Department);
-                await _context.SaveChangesAsync();
-            }
+            departmentRepository.DeleteDepartment(id);
 
             return RedirectToPage("./Index");
         }

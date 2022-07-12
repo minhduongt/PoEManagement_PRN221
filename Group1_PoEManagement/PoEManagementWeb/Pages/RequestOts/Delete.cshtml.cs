@@ -8,22 +8,18 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.RequestOts
 {
     public class DeleteModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public DeleteModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        IRequestOtRepository requestOtRepository = new RequestOtRepository();
 
         [BindProperty]
         public RequestOt RequestOt { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             string LoginEmail = HttpContext.Session.GetString("LoginEmail");
             string ManagerEmail = HttpContext.Session.GetString("ManagerEmail");
@@ -40,7 +36,7 @@ namespace PoEManagementWeb.Pages.RequestOts
                 return NotFound();
             }
 
-            RequestOt = await _context.RequestOts.FirstOrDefaultAsync(m => m.Id == id);
+            RequestOt = requestOtRepository.GetRequestOtByID(id);
 
             if (RequestOt == null)
             {
@@ -49,20 +45,14 @@ namespace PoEManagementWeb.Pages.RequestOts
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            RequestOt = await _context.RequestOts.FindAsync(id);
-
-            if (RequestOt != null)
-            {
-                _context.RequestOts.Remove(RequestOt);
-                await _context.SaveChangesAsync();
-            }
+            requestOtRepository.DeleteRequestOt(id);
 
             return RedirectToPage("./Index");
         }

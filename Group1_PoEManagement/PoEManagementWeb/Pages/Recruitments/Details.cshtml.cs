@@ -7,28 +7,24 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using PoEManagementLib.BusinessObject;
 using PoEManagementLib.DataAccess;
+using PoEManagementLib.DataAccess.Repository;
 
 namespace PoEManagementWeb.Pages.Recruitments
 {
     public class DetailsModel : PageModel
     {
-        private readonly PoEManagementLib.DataAccess.Prn221DBContext _context;
-
-        public DetailsModel(PoEManagementLib.DataAccess.Prn221DBContext context)
-        {
-            _context = context;
-        }
+        IRecuitmentRepository recuitmentRepository = new RecuitmentRepository();
 
         public Recuitment Recuitment { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            Recuitment = await _context.Recuitments.FirstOrDefaultAsync(m => m.Id == id);
+            Recuitment = recuitmentRepository.GetRecuitmentByID(id);
 
             if (Recuitment == null)
             {
